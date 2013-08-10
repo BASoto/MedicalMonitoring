@@ -8,12 +8,12 @@
 
 #include <iostream>
 #include <stdio.h>
-#include <labjackusb.h>
 
-using namespace std;
+extern "C"
+{
+	#include "labjackusb.h"
+}
 
 int main(int argc, char** argv) {
-
-	cout << "test" << argc << endl; // prints !!!Hello World!!!
-	return 0;
+	std::cout << "Number of devices: " << LJUSB_GetDevCount(U3_PRODUCT_ID);
 }
