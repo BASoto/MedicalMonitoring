@@ -25,7 +25,9 @@
 							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.exe.debug.1959117078" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.exe.debug">
 								<option id="gnu.cpp.compiler.exe.debug.option.optimization.level.2114310680" name="Optimization Level" superClass="gnu.cpp.compiler.exe.debug.option.optimization.level" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.exe.debug.option.debugging.level.1729248989" name="Debug Level" superClass="gnu.cpp.compiler.exe.debug.option.debugging.level" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
-								<option id="gnu.cpp.compiler.option.include.paths.1618034940" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths"/>
+								<option id="gnu.cpp.compiler.option.include.paths.1618034940" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="/home/brydev/Documents/exodriver-master/examples/U3"/>
+								</option>
 								<option id="gnu.cpp.compiler.option.include.files.778562028" name="Include files (-include)" superClass="gnu.cpp.compiler.option.include.files"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.928499062" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
@@ -36,9 +38,10 @@
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.exe.debug.399866182" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.debug"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug.1621774887" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug">
-								<option id="gnu.cpp.link.option.libs.1406558287" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs"/>
+								<option id="gnu.cpp.link.option.libs.1406558287" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs"/>
 								<option id="gnu.cpp.link.option.paths.1196487482" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths"/>
 								<option id="gnu.cpp.link.option.userobjs.1920177981" name="Other objects" superClass="gnu.cpp.link.option.userobjs" valueType="userObjs">
+									<listOptionValue builtIn="false" value="/home/brydev/Documents/exodriver-master/exodriver/examples/U3/u3.o"/>
 									<listOptionValue builtIn="false" value="/home/brydev/Documents/exodriver-master/exodriver/liblabjackusb/liblabjackusb.so.2.5.2"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1569424268" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">

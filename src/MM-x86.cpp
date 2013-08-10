@@ -8,12 +8,17 @@
 
 #include <iostream>
 #include <stdio.h>
+#include "Labjack.h"
 
-extern "C"
+/*extern "C"
 {
 	#include "labjackusb.h"
-}
+}*/
 
 int main(int argc, char** argv) {
-	std::cout << "Number of devices: " << LJUSB_GetDevCount(U3_PRODUCT_ID);
+	Labjack::Labjack * lj = new Labjack::Labjack(-1);
+	lj->OpenConnection();
+	lj->GetVoltageFromAnalogInput(0);
+	//lj->OpenConnection();
+	//std::cout << "Number of devices: " << LJUSB_GetDevCount(U3_PRODUCT_ID);
 }
