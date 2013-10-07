@@ -21,14 +21,14 @@ namespace MedMon_DB {
 
 class Database {
 	public:
-		sql::Connection *conn;
 		sql::Statement *stmt;
 		sql::ResultSet *results;
-
+		std::auto_ptr<sql::Connection> conn;
 		Database();
 
-		void openDBConnection(std::string *connectionString);
-		void createDB(std::string *deviceSerial);
+		void openDBConnection(std::string * dbURL, std::string * user, std::string * pw);
+		void executeNonQuery(std::string * cmd);
+		void initLJTbl(std::string * ljTblName);
 	private:
 		sql::Driver *driver;
 };

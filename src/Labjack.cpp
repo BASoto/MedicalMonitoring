@@ -41,7 +41,6 @@ namespace Labjack {
 		void Labjack::GetVoltageFromAnalogInput(long portNumber)
 		{
 			double voltage;
-
 			if( (error = eAIN(hDevice, &caliInfo, 1, &DAC1Enable, portNumber, 31, &voltage, 0, 0, 0, 0, 0, 0)) != 0 )
 			{
 			  printf("No voltage found...");

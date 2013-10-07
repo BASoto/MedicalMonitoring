@@ -14,9 +14,10 @@ namespace Labjack_Init {
 
 	}
 
-	void Initializer::initDB()
+	void Initializer::initDB(MedMon_DB::Database * ljDB, std::string * tblName)
 	{
-
+		std::string query = "CALL spNewLjDeviceTbl('" + *tblName + "');";
+		ljDB->executeNonQuery(&query);
 	}
 
 } /* namespace Labjack_Init */
