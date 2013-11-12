@@ -38,7 +38,7 @@ namespace Labjack {
 			std::cout << "The labjack was closed for the following reason: " << *reason;
 		}
 
-		void Labjack::GetVoltageFromAnalogInput(long portNumber)
+		double Labjack::GetVoltageFromAnalogInput(long portNumber)
 		{
 			double voltage;
 			if( (error = eAIN(hDevice, &caliInfo, 1, &DAC1Enable, portNumber, 31, &voltage, 0, 0, 0, 0, 0, 0)) != 0 )
@@ -46,7 +46,7 @@ namespace Labjack {
 			  printf("No voltage found...");
 			}
 
-			printf("Port value = %.3f\n", voltage);
+			return voltage;
 		}
 
 

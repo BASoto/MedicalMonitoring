@@ -6,6 +6,7 @@
  */
 
 #include "Database.h"
+
 using namespace sql;
 
 namespace MedMon_DB {
@@ -34,12 +35,37 @@ namespace MedMon_DB {
 		stmt.release();
 	}
 
-	void Database::executeNonQuery(std::string * cmd)
+	void Database::recordSensorReading(int sensorID, int portNumber, int value, std::string * dbNm)
+	{
+		std::string insertStmt = "INSERT INTO " + *dbNm + " (PortID, SensorID, TimeStamp, Calibration, SensorReading) " +
+				"VALUES(?,?,NOW(),?,?)";
+
+		sql::SQLString _query(insertStmt);
+		conn->setSchema("medmon");
+		std::auto_ptr<sql::PreparedStatement> pstmt;
+		pstmt.reset(conn->prepareStatement(_query));
+		pstmt->setInt(0, sensorID);
+		pstmt->setInt(1, portNumber);
+		pstmt->setInt(2, 0);
+		pstmt->setInt(3, value);
+
+		pstmt.reset();
+	}
+
+	void Database::executeNonQuery(const std::string * cmd)
 	{
 		sql::SQLString _query(*cmd);
 
 		std::auto_ptr<sql::Statement> stmt(conn->createStatement());
 		stmt->execute(_query);
 		stmt.release();
+	}
+
+	std::auto_ptr<sql::ResultSet> Database::executeQuery(const std::string * cmd)
+	{
+		sql::SQLString _query(*cmd);
+		std::auto_ptr<sql::ResultSet> res(stmt->executeQuery(_query));
+
+		return res;
 	}
 } /* namespace MedMon_DB */

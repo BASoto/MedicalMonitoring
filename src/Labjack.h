@@ -25,7 +25,7 @@ class Labjack {
 	    Labjack(int deviceID);
 		void OpenConnection();
 		void CloseConnection(std::string * reason);
-		void GetVoltageFromAnalogInput(long portNumber);
+		double GetVoltageFromAnalogInput(long portNumber);
 		void GetFlexIOReading(long portNumber);
 
 	private:
