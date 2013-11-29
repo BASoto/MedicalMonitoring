@@ -6,6 +6,7 @@
 // Description : Hello World in C++, Ansi-style
 //============================================================================
 #include <iostream>
+#include <pthread.h>
 #include <stdio.h>
 #include "Utils/Utilities.h"
 #include "Initialization/Initializer.h"
@@ -20,7 +21,7 @@ int main(int argc, char** argv) {
 	std::string dbNm = "lj" + Utils::Utilities::convertInt(ljSerial);
 
 	MedMon_DB::Database * ljDB = new MedMon_DB::Database();
-	Labjack::Labjack * lj = new Labjack::Labjack(ljSerial);
+	//Labjack::Labjack * lj = new Labjack::Labjack(ljSerial);
 
 	ljDB->openDBConnection(&dbUrl, &dbUsr, &dbPwd);
 	ljDB->initLJTbl(&dbNm);
@@ -28,6 +29,7 @@ int main(int argc, char** argv) {
 	Labjack_Init::Initializer * initializer = new Labjack_Init::Initializer(ljDB);
 	std::vector<Labjack_Init::SensorConnection> * sensors = initializer->getSensorConnections(ljDB, 7);
 
+	std::cout << "End";
 
 	/*while(true)
 	{
@@ -36,6 +38,7 @@ int main(int argc, char** argv) {
 			long sensorID = (*sensors)[i].SensorID;
 			double reading = lj->GetVoltageFromAnalogInput((int)sensorID);
 			ljDB->recordSensorReading((int)sensorID, (*sensors)[i].PortID, (int)reading, &dbNm);
+
 		}
 
 		sleep(10000);

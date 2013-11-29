@@ -28,11 +28,13 @@ namespace MedMon_DB {
 
 	void Database::initLJTbl(std::string * ljTblName)
 	{
-		sql::SQLString tblName(*ljTblName);
-
-		std::auto_ptr<sql::Statement> stmt(conn->createStatement());
-		stmt->execute("CALL spNewLjDeviceTbl('" + *ljTblName + "');");
-		stmt.release();
+		std::cout << "Initializing labjack database\n";
+		std::string initTblQuery = "CALL spNewLJDeviceTbl(?)";
+		sql::SQLString _query(initTblQuery);
+		pstmt = conn->prepareStatement(_query);
+		pstmt->setString(1, sql::SQLString(initTblQuery));
+		pstmt->execute();
+		delete pstmt;
 	}
 
 	void Database::recordSensorReading(int sensorID, int portNumber, int value, std::string * dbNm)
@@ -41,7 +43,6 @@ namespace MedMon_DB {
 				"VALUES(?,?,NOW(),?,?)";
 
 		sql::SQLString _query(insertStmt);
-		conn->setSchema("medmon");
 		std::auto_ptr<sql::PreparedStatement> pstmt;
 		pstmt.reset(conn->prepareStatement(_query));
 		pstmt->setInt(0, sensorID);
@@ -49,23 +50,27 @@ namespace MedMon_DB {
 		pstmt->setInt(2, 0);
 		pstmt->setInt(3, value);
 
-		pstmt.reset();
+		pstmt.release();
 	}
 
 	void Database::executeNonQuery(const std::string * cmd)
 	{
+		std::cout << "Non Query called";
 		sql::SQLString _query(*cmd);
+		pstmt = conn->prepareStatement(_query);
+		pstmt->execute();
 
-		std::auto_ptr<sql::Statement> stmt(conn->createStatement());
-		stmt->execute(_query);
-		stmt.release();
+		delete pstmt;
 	}
 
 	std::auto_ptr<sql::ResultSet> Database::executeQuery(const std::string * cmd)
 	{
 		sql::SQLString _query(*cmd);
-		std::auto_ptr<sql::ResultSet> res(stmt->executeQuery(_query));
-
+		pstmt = conn->prepareStatement(_query);
+		std::auto_ptr<sql::ResultSet> res(pstmt->executeQuery());
+		//std::auto_ptr<sql::ResultSet> res(pstmt->executeQuery(_query));
+		//stmt.release();
+		delete pstmt;
 		return res;
 	}
 } /* namespace MedMon_DB */

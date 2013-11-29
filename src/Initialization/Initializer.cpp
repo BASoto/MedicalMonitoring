@@ -33,17 +33,35 @@ namespace Labjack_Init {
 		std::vector<int> * adcVals = ADC.getValuesFromADC();
 		std::vector<SensorIdentifier> identities;
 		std::vector<SensorConnection> * sensorConnections = new std::vector<SensorConnection>();
-		std::string query = "Select SensorID, SensorVoltageIDMin, SensorVoltageIDMax, SensorInterface from sensor";
-		std::auto_ptr<sql::ResultSet> results = ljDB->executeQuery(&query);
+		std::string query = "SELECT SensorID, SensorVoltageIdMin_mV, SensorVoltageIdMax_mV, SensorInterface FROM Sensor";
 
-		while(results->next())
+		std::auto_ptr<sql::ResultSet> results;
+
+		try
 		{
-			identities.push_back(SensorIdentifier(
-					results->getInt(sql::SQLString("SensorID")),
-					results->getInt(sql::SQLString("SensorVoltageIDMax")),
-					results->getInt(sql::SQLString("SensorVoltageIDMin")),
-					results->getInt(sql::SQLString("SensorInterface"))
-			));
+			results = ljDB->executeQuery(&query);
+
+			while(results->next())
+			{
+				identities.push_back(SensorIdentifier(
+						results->getInt(sql::SQLString("SensorID")),
+						results->getInt(sql::SQLString("SensorVoltageIDMax_mV")),
+						results->getInt(sql::SQLString("SensorVoltageIDMin_mV")),
+						results->getInt(sql::SQLString("SensorInterface"))
+				));
+
+				//Temporary
+				printf("MySql Sensor Type Read: SensorID: %u, Max: %u, Min: %u, Interface: %u \n",
+						results->getInt(sql::SQLString("SensorID")),
+											results->getInt(sql::SQLString("SensorVoltageIdMax_mV")),
+											results->getInt(sql::SQLString("SensorVoltageIdMin_mV")),
+											results->getInt(sql::SQLString("SensorInterface"))
+											);
+			}
+		}
+		catch(sql::SQLException &ex)
+		{
+			std::cout << "An Error has occurred: " << ex.getErrorCode() << ex.what() << "\n";
 		}
 
 		for(unsigned int i = 0; i < adcVals->capacity(); i++)
@@ -59,12 +77,14 @@ namespace Labjack_Init {
 						)
 					);
 
-					printf("Sensor detected, PortID: %n, SensorID: %n", i, identities[j].SensorID);
+					printf("Sensor detected, PortID: %n, SensorID: %n \n", &i, &identities[j].SensorID);
 				}
 			}
 		}
 
+		sleep(10);
 		delete adcVals;
+		identities.clear();
 		return sensorConnections;
 	}
 } /* namespace Labjack_Init */

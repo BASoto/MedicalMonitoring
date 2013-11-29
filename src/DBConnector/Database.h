@@ -33,8 +33,9 @@ struct SensorIdentifier
 
 class Database {
 	public:
-		sql::Statement *stmt;
-		sql::ResultSet *results;
+		//sql::Statement *stmt;
+		sql::ResultSet * results;
+		sql::PreparedStatement * pstmt;
 		std::auto_ptr<sql::Connection> conn;
 		Database();
 
