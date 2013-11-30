@@ -19,23 +19,25 @@ namespace Labjack_Init {
 
 struct SensorConnection
 {
-	int PortID, SensorID;
-	SensorConnection(int port, int sensorID)
+	int PortID, SensorID, PollingFrequency;
+	SensorConnection(int port, int sensorID, int pollingFrequency)
 	{
 		PortID = port;
 		SensorID = sensorID;
+		PollingFrequency = pollingFrequency;
 	};
 };
 
 struct SensorIdentifier
 {
-	int SensorID, VolatgeMin, VoltageMax, SensorInterface;
-	SensorIdentifier(int id, int min, int max, int interface)
+	int SensorID, VolatgeMin, VoltageMax, SensorInterface, PollingFrequency;
+	SensorIdentifier(int id, int min, int max, int interface, int freq)
 	{
 		this->SensorID = id;
 		this->VolatgeMin = min;
 		this->VoltageMax = max;
 		this->SensorInterface = interface;
+		this->PollingFrequency = freq;
 	}
 };
 

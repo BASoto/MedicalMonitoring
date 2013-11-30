@@ -43,14 +43,11 @@ namespace MedMon_DB {
 				"VALUES(?,?,NOW(),?,?)";
 
 		sql::SQLString _query(insertStmt);
-		std::auto_ptr<sql::PreparedStatement> pstmt;
-		pstmt.reset(conn->prepareStatement(_query));
+		pstmt = conn->prepareStatement(_query);
 		pstmt->setInt(0, sensorID);
 		pstmt->setInt(1, portNumber);
 		pstmt->setInt(2, 0);
 		pstmt->setInt(3, value);
-
-		pstmt.release();
 	}
 
 	void Database::executeNonQuery(const std::string * cmd)
@@ -59,7 +56,6 @@ namespace MedMon_DB {
 		sql::SQLString _query(*cmd);
 		pstmt = conn->prepareStatement(_query);
 		pstmt->execute();
-
 		delete pstmt;
 	}
 
@@ -68,8 +64,6 @@ namespace MedMon_DB {
 		sql::SQLString _query(*cmd);
 		pstmt = conn->prepareStatement(_query);
 		std::auto_ptr<sql::ResultSet> res(pstmt->executeQuery());
-		//std::auto_ptr<sql::ResultSet> res(pstmt->executeQuery(_query));
-		//stmt.release();
 		delete pstmt;
 		return res;
 	}

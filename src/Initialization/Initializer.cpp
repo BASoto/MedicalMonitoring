@@ -33,7 +33,7 @@ namespace Labjack_Init {
 		std::vector<int> * adcVals = ADC.getValuesFromADC();
 		std::vector<SensorIdentifier> identities;
 		std::vector<SensorConnection> * sensorConnections = new std::vector<SensorConnection>();
-		std::string query = "SELECT SensorID, SensorVoltageIdMin_mV, SensorVoltageIdMax_mV, SensorInterface FROM Sensor";
+		std::string query = "SELECT SensorID, SensorVoltageIdMin_mV, SensorVoltageIdMax_mV, SensorInterface, PollingFrequency_ms FROM Sensor";
 
 		std::auto_ptr<sql::ResultSet> results;
 
@@ -47,21 +47,22 @@ namespace Labjack_Init {
 						results->getInt(sql::SQLString("SensorID")),
 						results->getInt(sql::SQLString("SensorVoltageIDMax_mV")),
 						results->getInt(sql::SQLString("SensorVoltageIDMin_mV")),
-						results->getInt(sql::SQLString("SensorInterface"))
+						results->getInt(sql::SQLString("SensorInterface")),
+						results->getInt(sql::SQLString("PollingFrequency_ms"))
 				));
 
-				//Temporary
-				printf("MySql Sensor Type Read: SensorID: %u, Max: %u, Min: %u, Interface: %u \n",
+				printf("MySql Sensor Type Read: SensorID: %u, Max: %u, Min: %u, Interface: %u, Frequency: %u \n",
 						results->getInt(sql::SQLString("SensorID")),
-											results->getInt(sql::SQLString("SensorVoltageIdMax_mV")),
-											results->getInt(sql::SQLString("SensorVoltageIdMin_mV")),
-											results->getInt(sql::SQLString("SensorInterface"))
-											);
+						results->getInt(sql::SQLString("SensorVoltageIdMax_mV")),
+						results->getInt(sql::SQLString("SensorVoltageIdMin_mV")),
+						results->getInt(sql::SQLString("SensorInterface")),
+						results->getInt(sql::SQLString("PollingFrequency_ms"))
+					  );
 			}
 		}
 		catch(sql::SQLException &ex)
 		{
-			std::cout << "An Error has occurred: " << ex.getErrorCode() << ex.what() << "\n";
+			std::cout << "A database error has occurred: " << ex.getErrorCode() << ex.what() << "\n";
 		}
 
 		for(unsigned int i = 0; i < adcVals->capacity(); i++)
@@ -73,7 +74,8 @@ namespace Labjack_Init {
 					sensorConnections->push_back(
 						SensorConnection(
 								i,
-								identities[j].SensorID
+								identities[j].SensorID,
+								identities[j].PollingFrequency
 						)
 					);
 
@@ -82,7 +84,10 @@ namespace Labjack_Init {
 			}
 		}
 
-		sleep(10);
+		/*Testing threads*/
+		sensorConnections->push_back(SensorConnection(0, 0, 1000));
+		sensorConnections->push_back(SensorConnection(1, 1, 10000));
+
 		delete adcVals;
 		identities.clear();
 		return sensorConnections;
