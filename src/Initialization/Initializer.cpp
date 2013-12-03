@@ -85,8 +85,7 @@ namespace Labjack_Init {
 		}
 
 		/*Testing threads*/
-		sensorConnections->push_back(SensorConnection(0, 0, 1000));
-		sensorConnections->push_back(SensorConnection(1, 1, 10000));
+		sensorConnections->push_back(SensorConnection(0, 1, 10000));
 
 		delete adcVals;
 		identities.clear();

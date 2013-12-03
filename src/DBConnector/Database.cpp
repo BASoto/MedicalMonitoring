@@ -44,10 +44,12 @@ namespace MedMon_DB {
 
 		sql::SQLString _query(insertStmt);
 		pstmt = conn->prepareStatement(_query);
-		pstmt->setInt(0, sensorID);
 		pstmt->setInt(1, portNumber);
-		pstmt->setInt(2, 0);
-		pstmt->setInt(3, value);
+		pstmt->setInt(2, sensorID);
+		pstmt->setInt(3, 0);
+		pstmt->setInt(4, value);
+
+		pstmt->execute();
 	}
 
 	void Database::executeNonQuery(const std::string * cmd)

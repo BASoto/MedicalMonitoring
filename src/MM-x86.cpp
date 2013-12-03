@@ -17,6 +17,7 @@
 
 int main(int argc, char** argv) {
 	const int ljSerial = 320052879;
+	//const int ljSerial = -1;
 	std::string dbUrl = "localhost";
 	std::string dbUsr = "root";
 	std::string dbPwd = "4TheGradz";
@@ -31,6 +32,7 @@ int main(int argc, char** argv) {
 	Labjack_Init::Initializer * initializer = new Labjack_Init::Initializer(ljDB);
 	std::vector<Labjack_Init::SensorConnection> * sensors = initializer->getSensorConnections(ljDB, 7);
 
+	lj->OpenConnection();
 	unsigned int sensorCount = sensors->capacity();
 	pthread_t sensorWorkerThreads[sensorCount];
 
@@ -42,7 +44,7 @@ int main(int argc, char** argv) {
 
 		if(threadStatus)
 		{
-			std::cout << "An error has occurred when instatiating a thread. \n";
+			std::cout << "An error has occurred when instantiating a thread. \n";
 		}
 	}
 

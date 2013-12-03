@@ -20,13 +20,12 @@ namespace WorkerThread {
 			MedMon_DB::Database * mmDB = args->LJDB;
 
 			printf("Recording sensor data from port %u. \n", args->Conn->PortID);
-			/*
+
 			mmDB->recordSensorReading(
 					args->Conn->SensorID,
 					args->Conn->PortID,
 					args->LJ->GetVoltageFromAnalogInput(args->Conn->PortID),
 					args->dbName);
-			*/
 
 			usleep(sleepPeriod);
 		}
