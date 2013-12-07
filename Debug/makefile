@@ -10,6 +10,7 @@ RM := rm -rf
 -include sources.mk
 -include src/WorkerThread/subdir.mk
 -include src/Utils/subdir.mk
+-include src/Labjack/subdir.mk
 -include src/Initialization/subdir.mk
 -include src/DBConnector/subdir.mk
 -include src/subdir.mk
@@ -48,7 +49,7 @@ all: MM-x86
 MM-x86: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
-	g++ -L/usr/local/lib -o "MM-x86" $(OBJS) $(USER_OBJS) $(LIBS)
+	g++ -L/usr/local/lib -L/usr/lib -L/opt/mysql/server-5.6/lib -o "MM-x86" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 

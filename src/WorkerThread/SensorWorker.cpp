@@ -21,6 +21,7 @@ namespace WorkerThread {
 
 			printf("Recording sensor data from port %u. \n", args->Conn->PortID);
 
+
 			mmDB->recordSensorReading(
 					args->Conn->SensorID,
 					args->Conn->PortID,

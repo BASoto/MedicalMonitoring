@@ -4,15 +4,12 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../src/Labjack.cpp \
 ../src/MM-x86.cpp 
 
 OBJS += \
-./src/Labjack.o \
 ./src/MM-x86.o 
 
 CPP_DEPS += \
-./src/Labjack.d \
 ./src/MM-x86.d 
 
 

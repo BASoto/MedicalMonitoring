@@ -8,9 +8,10 @@
 #ifndef SENSORWORKER_H_
 #define SENSORWORKER_H_
 
+#include <stdio.h>
 #include "../Initialization/Initializer.h"
 #include "../DBConnector/Database.h"
-#include "../Labjack.h"
+#include "../Labjack/Labjack.h"
 
 namespace WorkerThread {
 

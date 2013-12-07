@@ -11,7 +11,7 @@
 #include <pthread.h>
 #include "Utils/Utilities.h"
 #include "Initialization/Initializer.h"
-#include "Labjack.h"
+#include "Labjack/Labjack.h"
 #include "DBConnector/Database.h"
 #include "WorkerThread/SensorWorker.h"
 

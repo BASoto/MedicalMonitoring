@@ -26,6 +26,7 @@ SUBDIRS := \
 src/WorkerThread \
 src/Utils \
 src \
+src/Labjack \
 src/Initialization \
 src/DBConnector \
 

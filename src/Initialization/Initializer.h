@@ -12,7 +12,7 @@ extern "C"{
 	#include "labjackusb.h"
 }
 
-#include "Database.h"
+#include "../DBConnector/Database.h"
 #include <vector>
 
 namespace Labjack_Init {
