@@ -29,15 +29,14 @@ namespace MedMon_DB {
 	void Database::initLJTbl(std::string * ljTblName)
 	{
 		std::cout << "Initializing labjack database\n";
-		std::string initTblQuery = "CALL spNewLJDeviceTbl(?)";
-		sql::SQLString _query(initTblQuery);
-		pstmt = conn->prepareStatement(_query);
-		pstmt->setString(1, sql::SQLString(initTblQuery));
+		std::string initTblQuery = "CALL spNewLJDeviceTbl(?);";
+		pstmt = conn->prepareStatement(sql::SQLString(initTblQuery));
+		pstmt->setString(1, sql::SQLString(*ljTblName));
 		pstmt->execute();
 		delete pstmt;
 	}
 
-	void Database::recordSensorReading(int sensorID, int portNumber, int value, std::string * dbNm)
+	void Database::recordSensorReading(int sensorID, int portNumber, int caliInfo, double value, std::string * dbNm)
 	{
 		std::string insertStmt = "INSERT INTO " + *dbNm + " (PortID, SensorID, TimeStamp, Calibration, SensorReading) " +
 				"VALUES(?,?,NOW(),?,?)";
@@ -46,8 +45,8 @@ namespace MedMon_DB {
 		pstmt = conn->prepareStatement(_query);
 		pstmt->setInt(1, portNumber);
 		pstmt->setInt(2, sensorID);
-		pstmt->setInt(3, 0);
-		pstmt->setInt(4, value);
+		pstmt->setInt(3, caliInfo);
+		pstmt->setDouble(4, value);
 
 		pstmt->execute();
 	}

@@ -26,6 +26,7 @@ namespace WorkerThread {
 					args->Conn->SensorID,
 					args->Conn->PortID,
 					args->LJ->GetVoltageFromAnalogInput(args->Conn->PortID),
+					args->LJ->caliInfo.highVoltage,
 					args->dbName);
 
 			usleep(sleepPeriod);

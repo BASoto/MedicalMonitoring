@@ -38,7 +38,7 @@ class Database {
 		std::auto_ptr<sql::Connection> conn;
 		Database();
 
-		void recordSensorReading(int sensorID, int portNumber, int value, std::string * dbNm);
+		void recordSensorReading(int sensorID, int portNumber, int caliInfo, double value, std::string * dbNm);
 		void openDBConnection(std::string * dbURL, std::string * user, std::string * pw);
 		void executeNonQuery(const std::string * cmd);
 		std::auto_ptr<sql::ResultSet> executeQuery(const std::string * cmd);
